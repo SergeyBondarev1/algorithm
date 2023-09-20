@@ -66,6 +66,7 @@ public class StringListImpl implements StringList {
             storage[size--] = null;
             return item;
         }
+
         System.arraycopy(storage,index+1,storage,index,size-index);
         size--;
         return item;
