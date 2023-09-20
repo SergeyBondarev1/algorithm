@@ -57,7 +57,6 @@ public class StringListImpl implements StringList {
         size--;
         return item;
     }
-
     @Override
     public String remove(int index) {
         validateIndex(index);
@@ -71,12 +70,10 @@ public class StringListImpl implements StringList {
         size--;
         return item;
     }
-
     @Override
     public boolean contains(String item) {
         return indexOf(item) != -1;
     }
-
     @Override
     public int indexOf(String item) {
         for (int i = 0; i < size; i++) {
@@ -86,7 +83,6 @@ public class StringListImpl implements StringList {
         }
         return -1;
     }
-
     @Override
     public int lastIndexOf(String item) {
         for (int i = size - 1; i >= 0; i--) {
@@ -106,12 +102,10 @@ public class StringListImpl implements StringList {
     public boolean equals(StringList otherList) {
         return Arrays.equals(this.toArray(),otherList.toArray());
     }
-
     @Override
     public int size() {
         return size;
     }
-
     @Override
     public boolean isEmpty() {
         return size == 0;
