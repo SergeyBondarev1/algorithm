@@ -1,7 +1,9 @@
 import java.util.Arrays;
 
+import static com.sun.java.util.jar.pack.ConstantPool.partition;
+
 public class StringListImpl implements StringList {
-    private final String[]storage;
+    private String[]storage;
     private int size;
 
     public StringListImpl(){
@@ -57,6 +59,37 @@ public class StringListImpl implements StringList {
         size--;
         return item;
     }
+    private void quickSort(Integer[]arr, int begin, int end){
+        if (begin < end) {
+            int partitionIndex = partition(arr, begin, end);
+
+            quickSort(arr, begin, partitionIndex - 1);
+            quickSort(arr, partitionIndex + 1, end);
+    }
+    }
+
+    private int partition(Integer[] arr, int begin, int end) {
+        int pivot = arr[end];
+        int i = (begin - 1);
+
+        for (int j = begin; j < end; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+
+                swapElements(arr, i, j);
+            }
+        }
+
+        swapElements(arr, i + 1, end);
+        return i + 1;
+    }
+
+    private void swapElements(Integer[] arr, int i1, int i2) {
+        int temp = arr[i1];
+        arr[i1] = arr[i2];
+        arr[i2] = temp;
+    }
+
 
     @Override
     public String remove(int index) {
@@ -132,14 +165,20 @@ public class StringListImpl implements StringList {
             throw new NullItemException();
         }
     }
-    private  void validateSize(){
+    private  void growIfNeeded(){
         if (size == storage.length){
-            throw new StorageIsFullException();
+           grow();
         }
     }
     private void validateIndex(int index){
         if (index < 0 || index > size){
             throw new InvalidIndexException();
         }
+    }
+    private void grow(){
+        storage = Arrays.copyOf(storage, size+size/2);
+    }
+    private void sort(Integer[]arr){
+        quickSort(arr,0,arr.length - 1);
     }
 }
